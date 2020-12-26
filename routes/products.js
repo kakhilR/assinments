@@ -24,6 +24,22 @@ router.get('/products/list',(req,res)=>{
     })
 })
 
+router.put('/products/update/:id',async(req, res)=>{
+    const product = await Products.findById(req.params.id);
+    if(product){
+        product.ProductName = req.body.ProductName;
+        product.description = req.body.description;
+        product.price = req.body.price;
+        product.Category = req.body.Category;
+        const updatedproducts = await product.save();
+        res.status(200).send(updatedproducts)
+    }
+    else{
+        res.status(500).json({message:"error"})
+    }
+     
+})
+
 
 
 
